@@ -1,7 +1,7 @@
 
 # Asn1 File Reader
 
-Esse projeto é um leitor de arquivos ASN1 (como x509).
+Esse projeto é um leitor de arquivos ASN.1 (Abstract Syntax Notation One).
 
 ### Example
 

@@ -1,127 +1,305 @@
 
 /** OID
  *	
- *	@ref http://oid-info.com/index.htm
- *	
  */
 export default class OID {
 	
-	static Get( id ) {
+	static GetName( id ) {
 		
-		for( let key in OID ) {
+		let nodes = id.split(".");
+		
+		let target = oids;
+		
+		for( let n of nodes ) {
 			
-			let target = OID[ key ]
+			if( !(n in target) ) 
+				return '';
 			
-			if( typeof target == 'string' ) {
-				
-				if( target == id ) return key;
-				
-			} else {
-				
-				if( target.includes(id) ) return key;
-				
-			}
+			target = target[n];
 			
 		}
 		
-		return 'not found';
+		return target.N;
 		
 	}
 	
-	static ecPublicKey = 						'1.2.840.10045.2.1';
-	static prime256v1 = 						'1.2.840.10045.3.1.7';
-	
-	static rsaEncryption = 						'1.2.840.113549.1.1.1';
-	static md5WithRSAEncryption = 				'1.2.840.113549.1.1.4';
-	
-	static sha256WithRSAEncryption = 			'1.2.840.113549.1.1.11';
-	static sha512WithRSAEncryption = 			'1.2.840.113549.1.1.13';
-	
-	static emailAddress = 						'1.2.840.113549.1.9.1';
-	static contentType = 						'1.2.840.113549.1.9.3';
-	static id_messageDigest = 					'1.2.840.113549.1.9.4';
-	static id_aa_signingCertificateV2 = 		'1.2.840.113549.1.9.16.2.47';
-	
-	static id_data = 							'1.2.840.113549.1.7.1';
-	static signedData = 						'1.2.840.113549.1.7.2';
-	static signingTime = 						'1.2.840.113549.1.9.5';
-	
-	static revocationInfoArchival = 			'1.2.840.113583.1.1.8';
-	
-	
-	static authorityInfoAccess = 				'1.3.6.1.5.5.7.1.1';
-	
-	static cps = 								'1.3.6.1.5.5.7.2.1';
-	
-	static idKpServerAuth = 					'1.3.6.1.5.5.7.3.1';
-	static id_kp_clientAuth = 					'1.3.6.1.5.5.7.3.2';
-	static id_kp_emailProtection = 				'1.3.6.1.5.5.7.3.4';
-	
-	static idSdOcsp = 							'1.3.6.1.5.5.7.48.1';
-	static id_pkix_ocsp_basic = 				'1.3.6.1.5.5.7.48.1.1';
-	static caIssuers = 							'1.3.6.1.5.5.7.48.2';
-	
-	
-	static sha256 = 							'2.16.840.1.101.3.4.2.1';
-	
-	static commonName = 						'2.5.4.3';
-	static surname = 							'2.5.4.4';
-	
-	static serialNumber =						'2.5.4.5';
-			
-	static countryName = 						'2.5.4.6';
-	static localityName = 						'2.5.4.7';
-	static stateOrProvinceName = 				'2.5.4.8';
-	static streetAddress = 						'2.5.4.9';
-	static organizationName = 					'2.5.4.10';
-	static organizationalUnitName = 			'2.5.4.11';
-			
-	static title = 								'2.5.4.12';
-	static description = 						'2.5.4.13';
-	static searchGuide = 						'2.5.4.14';
-	static businessCategory = 					'2.5.4.15';
-	static postalAddress = 						'2.5.4.16';
-	static postalCode = 						'2.5.4.17';
-	static telephoneNumber = 					'2.5.4.20';
-	static userPassword = 						'2.5.4.35';
-			
-	static subjectKeyIdentifier = 				'2.5.29.14';
-	static keyUsage = 							'2.5.29.15';
-	static subjectAltName = 					'2.5.29.17';
-	static basicConstraints = 					'2.5.29.19';
-	static cRLNumber = 							'2.5.29.20';
-	static reasonCode =							'2.5.29.21';
-	static cRLDistributionPoints = 				'2.5.29.31';
-	static certificatePolicies = 				'2.5.29.32';
-	static authorityKeyIdentifier =				'2.5.29.35';
-	static extKeyUsage = 						'2.5.29.37';
-	
-	/// Infraestrutura de Chaves Públicas Brasileira 
-	/// ATRIBUIÇÃO DE OID NA ICP-BRASIL (DOC-ICP-04.01)
-	static raiz = 								'2.16.76.1.1.0';
-	static serasa_acp = 						'2.16.76.1.1.3';
-	
-	static serasa_cd = [
-												'2.16.76.1.2.1.6',
-												'2.16.76.1.2.2.1',
-												'2.16.76.1.2.3.3',
-												'2.16.76.1.2.4.1',
-												'2.16.76.1.2.101.1',
-												'2.16.76.1.2.102.1',
-												'2.16.76.1.2.103.1',
-												'2.16.76.1.2.104.1',
-												'2.16.76.1.2.304.2',
-												'2.16.76.1.2.303.2'
-	];
-
-	static dados_pj = 							'2.16.76.1.3.4';
-	static nome_pj = 							'2.16.76.1.3.2';
-	static cnpj = 								'2.16.76.1.3.3';
-	static cei_pj = 							'2.16.76.1.3.7';
-	
-	static accountNumber_11 = 					'2.23.42.2.7.11';
-	
-	static domainValidated = 					'2.23.140.1.2.1';
-	static organizationValidated = 				'2.23.140.1.2.2';
-	
 }
+
+/// some OIDS
+const oids = {
+	"1": {
+		"2": {
+			"840": {
+				"10045": {
+					"2": {
+						"1": {
+							"N": "ecPublicKey"
+						}
+					},
+					"3": {
+						"1": {
+							"7": {
+								"N": "prime256v1"
+							}
+						}
+					}
+				},
+				"113549": {
+					"1": {
+						"1": {
+							"1": {
+								"N": "rsaEncryption"
+							},
+							"4": {
+								"N": "md5WithRSAEncryption"
+							},
+							"11": {
+								"N": "sha256WithRSAEncryption"
+							},
+							"13": {
+								"N": "sha512WithRSAEncryption"
+							}
+						},
+						"7": {
+							"1": {
+								"N": "id_data"
+							},
+							"2": {
+								"N": "signedData"
+							}
+						},
+						"9": {
+							"1": {
+								"N": "emailAddress"
+							},
+							"3": {
+								"N": "contentType"
+							},
+							"4": {
+								"N": "id_messageDigest"
+							},
+							"5": {
+								"N": "signingTime"
+							},
+							"16": {
+								"2": {
+									"47": {
+										"N": "id_aa_signingCertificateV2"
+									}
+								}
+							}
+						}
+					}
+				},
+				"113583": {
+					"1": {
+						"1": {
+							"8": {
+								"N": "revocationInfoArchival"
+							}
+						}
+					}
+				}
+			}
+		},
+		"3": {
+			"6": {
+				"1": {
+					"5": {
+						"5": {
+							"7": {
+								"1": {
+									"1": {
+										"N": "authorityInfoAccess"
+									}
+								},
+								"2": {
+									"1": {
+										"N": "cps"
+									}
+								},
+								"3": {
+									"1": {
+										"N": "idKpServerAuth"
+									},
+									"2": {
+										"N": "id_kp_clientAuth"
+									},
+									"4": {
+										"N": "id_kp_emailProtection"
+									}
+								},
+								"48": {
+									"1": {
+										"1": {
+											"N": "id_pkix_ocsp_basic"
+										},
+										"N": "idSdOcsp"
+									},
+									"2": {
+										"N": "caIssuers"
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	},
+	"2": {
+		"5": {
+			"4": {
+				"3": {
+					"N": "commonName"
+				},
+				"4": {
+					"N": "surname"
+				},
+				"5": {
+					"N": "serialNumber"
+				},
+				"6": {
+					"N": "countryName"
+				},
+				"7": {
+					"N": "localityName"
+				},
+				"8": {
+					"N": "stateOrProvinceName"
+				},
+				"9": {
+					"N": "streetAddress"
+				},
+				"10": {
+					"N": "organizationName"
+				},
+				"11": {
+					"N": "organizationalUnitName"
+				},
+				"12": {
+					"N": "title"
+				},
+				"13": {
+					"N": "description"
+				},
+				"14": {
+					"N": "searchGuide"
+				},
+				"15": {
+					"N": "businessCategory"
+				},
+				"16": {
+					"N": "postalAddress"
+				},
+				"17": {
+					"N": "postalCode"
+				},
+				"20": {
+					"N": "telephoneNumber"
+				},
+				"35": {
+					"N": "userPassword"
+				}
+			},
+			"29": {
+				"14": {
+					"N": "subjectKeyIdentifier"
+				},
+				"15": {
+					"N": "keyUsage"
+				},
+				"17": {
+					"N": "subjectAltName"
+				},
+				"19": {
+					"N": "basicConstraints"
+				},
+				"20": {
+					"N": "cRLNumber"
+				},
+				"21": {
+					"N": "reasonCode"
+				},
+				"31": {
+					"N": "cRLDistributionPoints"
+				},
+				"32": {
+					"N": "certificatePolicies"
+				},
+				"35": {
+					"N": "authorityKeyIdentifier"
+				},
+				"37": {
+					"N": "extKeyUsage"
+				}
+			}
+		},
+		"16": {
+			"76": {
+				"1": {
+					"1": {
+						"0": {
+							"N": "raiz"
+						},
+						"3": {
+							"N": "serasa_acp"
+						}
+					},
+					"3": {
+						"2": {
+							"N": "nome_pj"
+						},
+						"3": {
+							"N": "cnpj"
+						},
+						"4": {
+							"N": "dados_pj"
+						},
+						"7": {
+							"N": "cei_pj"
+						}
+					}
+				}
+			},
+			"840": {
+				"1": {
+					"101": {
+						"3": {
+							"4": {
+								"2": {
+									"1": {
+										"N": "sha256"
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"23": {
+			"42": {
+				"2": {
+					"7": {
+						"11": {
+							"N": "accountNumber_11"
+						}
+					}
+				}
+			},
+			"140": {
+				"1": {
+					"2": {
+						"1": {
+							"N": "domainValidated"
+						},
+						"2": {
+							"N": "organizationValidated"
+						}
+					}
+				}
+			}
+		}
+	}
+};

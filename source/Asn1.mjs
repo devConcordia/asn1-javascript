@@ -22,7 +22,7 @@ export default class Asn1 {
 	
 	static FromPEM( data ) {
 		
-		/// remove header and footer (-----BEGIN CERTIFICATE----- and -----END CERTIFICATE-----)
+		/// remove header and footer ("-----BEGIN CERTIFICATE-----" and "-----END CERTIFICATE-----")
 		data = data.replace( /\-{5}[A-Z\s]+\-{5}/g, '' );
 		
 		/// remove break lines
@@ -77,7 +77,7 @@ export default class Asn1 {
 
 		
 		if( type == 'OBJECT_IDENTIFIER' )
-			content = OID.Get(content) +' ('+ content +')';
+			content = OID.GetName(content) +' ('+ content +')';
 		
 		
 		if( Array.isArray( content ) ) {
@@ -113,7 +113,7 @@ export default class Asn1 {
 		let type = ( tagClass == tags.CONTEXT_SPECIFIC )? "["+ tagType +"]" : labels.types[ tagType ];
 
 		if( type == 'OBJECT_IDENTIFIER' )
-			content = OID.Get(content) +' ('+ content +')';
+			content = OID.GetName(content) +' ('+ content +')';
 		
 		let details = " → "+ labels.classes[ tagClass ] +", "+ labels.features[ tagEncode ] +", length("+ length +")";
 
